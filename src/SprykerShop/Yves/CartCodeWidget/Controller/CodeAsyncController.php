@@ -13,28 +13,30 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @method \SprykerShop\Yves\CartCodeWidget\CartCodeWidgetFactory getFactory()
  */
-class CodeController extends AbstractCodeController
+class CodeAsyncController extends AbstractCodeController
 {
     /**
      * @var string
      */
-    public const PARAM_CODE = 'code';
+    protected const PARAM_CODE = 'code';
 
     /**
      * @var string
      */
-    public const MESSAGE_FORM_CSRF_VALIDATION_ERROR = 'form.csrf.error.text';
+    protected const MESSAGE_FORM_CSRF_VALIDATION_ERROR = 'form.csrf.error.text';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\JsonResponse
      */
     public function addAction(Request $request)
     {
         $form = $this->getFactory()->getCartCodeForm()->handleRequest($request);
         if (!$form->isSubmitted() || !$form->isValid()) {
-            return $this->redirectResponseExternal($request->headers->get('referer'));
+            $this->addErrorMessage(static::MESSAGE_FORM_CSRF_VALIDATION_ERROR);
+
+            return $this->getRedirectResponse($request);
         }
 
         $code = (string)$form->get(CartCodeForm::FIELD_CODE)->getData();
@@ -55,7 +57,7 @@ class CodeController extends AbstractCodeController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\JsonResponse
      */
     public function removeAction(Request $request)
     {
@@ -64,12 +66,14 @@ class CodeController extends AbstractCodeController
         if (!$cartCodeRemoveForm->isSubmitted() || !$cartCodeRemoveForm->isValid()) {
             $this->addErrorMessage(static::MESSAGE_FORM_CSRF_VALIDATION_ERROR);
 
-            return $this->redirectResponseExternal($request->headers->get('referer'));
+            return $this->getRedirectResponse($request);
         }
 
         $code = (string)$request->query->get(static::PARAM_CODE);
         if (!$code) {
-            return $this->redirectResponseExternal($request->headers->get('referer'));
+            $this->addErrorMessage(static::MESSAGE_FORM_CSRF_VALIDATION_ERROR);
+
+            return $this->getRedirectResponse($request);
         }
 
         $quoteTransfer = $this->getFactory()->getQuoteClient()->getQuote();
@@ -83,7 +87,7 @@ class CodeController extends AbstractCodeController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\JsonResponse
      */
     public function clearAction(Request $request)
     {
@@ -92,7 +96,7 @@ class CodeController extends AbstractCodeController
         if (!$cartCodeClearForm->isSubmitted() || !$cartCodeClearForm->isValid()) {
             $this->addErrorMessage(static::MESSAGE_FORM_CSRF_VALIDATION_ERROR);
 
-            return $this->redirectResponseExternal($request->headers->get('referer'));
+            return $this->getRedirectResponse($request);
         }
 
         $quoteTransfer = $this->getFactory()->getQuoteClient()->getQuote();
