@@ -20,57 +20,36 @@ use Symfony\Component\Form\FormInterface;
 
 class CartCodeWidgetFactory extends AbstractFactory
 {
-    /**
-     * @return \SprykerShop\Yves\CartCodeWidget\Dependency\Client\CartCodeWidgetToCartCodeClientInterface
-     */
     public function getCartCodeClient(): CartCodeWidgetToCartCodeClientInterface
     {
         return $this->getProvidedDependency(CartCodeWidgetDependencyProvider::CLIENT_CART_CODE);
     }
 
-    /**
-     * @return \SprykerShop\Yves\CartCodeWidget\Dependency\Client\CartCodeWidgetToQuoteClientInterface
-     */
     public function getQuoteClient(): CartCodeWidgetToQuoteClientInterface
     {
         return $this->getProvidedDependency(CartCodeWidgetDependencyProvider::CLIENT_QUOTE);
     }
 
-    /**
-     * @return \SprykerShop\Yves\CartCodeWidget\Dependency\Client\CartCodeWidgetToZedRequestClientInterface
-     */
     public function getZedRequestClient(): CartCodeWidgetToZedRequestClientInterface
     {
         return $this->getProvidedDependency(CartCodeWidgetDependencyProvider::CLIENT_ZED_REQUEST);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getCartCodeForm(): FormInterface
     {
         return $this->getFormFactory()->create(CartCodeForm::class);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getCartCodeRemoveForm(): FormInterface
     {
         return $this->getFormFactory()->create(CartCodeRemoveForm::class);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getCartCodeClearForm(): FormInterface
     {
         return $this->getFormFactory()->create(CartCodeClearForm::class);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormFactory
-     */
     public function getFormFactory(): FormFactory
     {
         return $this->getProvidedDependency(ApplicationConstants::FORM_FACTORY);

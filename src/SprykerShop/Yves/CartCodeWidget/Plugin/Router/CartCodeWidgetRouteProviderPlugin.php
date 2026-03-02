@@ -67,11 +67,6 @@ class CartCodeWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
         return $routeCollection;
     }
 
-    /**
-     * @param \Spryker\Yves\Router\Route\RouteCollection $routeCollection
-     *
-     * @return \Spryker\Yves\Router\Route\RouteCollection
-     */
     protected function addAddCodeRoute(RouteCollection $routeCollection): RouteCollection
     {
         $route = $this->buildRoute('/cart-code/code/add', 'CartCodeWidget', 'Code', 'addAction');
@@ -80,11 +75,6 @@ class CartCodeWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
         return $routeCollection;
     }
 
-    /**
-     * @param \Spryker\Yves\Router\Route\RouteCollection $routeCollection
-     *
-     * @return \Spryker\Yves\Router\Route\RouteCollection
-     */
     protected function addRemoveCodeRoute(RouteCollection $routeCollection): RouteCollection
     {
         $route = $this->buildRoute('/cart-code/code/remove', 'CartCodeWidget', 'Code', 'removeAction');
@@ -93,11 +83,6 @@ class CartCodeWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
         return $routeCollection;
     }
 
-    /**
-     * @param \Spryker\Yves\Router\Route\RouteCollection $routeCollection
-     *
-     * @return \Spryker\Yves\Router\Route\RouteCollection
-     */
     protected function addClearCodeRoute(RouteCollection $routeCollection): RouteCollection
     {
         $route = $this->buildRoute('/cart-code/code/clear', 'CartCodeWidget', 'Code', 'clearAction');

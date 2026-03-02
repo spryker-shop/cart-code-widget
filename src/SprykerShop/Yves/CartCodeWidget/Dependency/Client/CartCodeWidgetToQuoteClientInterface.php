@@ -11,9 +11,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface CartCodeWidgetToQuoteClientInterface
 {
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function getQuote(): QuoteTransfer;
 
     /**
@@ -23,10 +20,5 @@ interface CartCodeWidgetToQuoteClientInterface
      */
     public function setQuote(QuoteTransfer $quoteTransfer);
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function isQuoteEditable(QuoteTransfer $quoteTransfer): bool;
 }

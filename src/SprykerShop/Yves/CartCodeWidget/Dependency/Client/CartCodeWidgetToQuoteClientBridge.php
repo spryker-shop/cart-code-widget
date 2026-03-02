@@ -24,9 +24,6 @@ class CartCodeWidgetToQuoteClientBridge implements CartCodeWidgetToQuoteClientIn
         $this->quoteClient = $quoteClient;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function getQuote(): QuoteTransfer
     {
         return $this->quoteClient->getQuote();
@@ -42,11 +39,6 @@ class CartCodeWidgetToQuoteClientBridge implements CartCodeWidgetToQuoteClientIn
         $this->quoteClient->setQuote($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function isQuoteEditable(QuoteTransfer $quoteTransfer): bool
     {
         return $this->quoteClient->isQuoteEditable($quoteTransfer);

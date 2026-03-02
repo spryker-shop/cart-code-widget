@@ -44,12 +44,6 @@ abstract class AbstractCodeController extends AbstractController
      */
     protected const MESSAGE_TYPE_ERROR = 'error';
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string|null $code
-     *
-     * @return \Generated\Shared\Transfer\CartCodeRequestTransfer
-     */
     protected function createCartCodeRequestTransfer(
         QuoteTransfer $quoteTransfer,
         ?string $code = null
@@ -59,11 +53,6 @@ abstract class AbstractCodeController extends AbstractController
             ->setCartCode($code);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartCodeResponseTransfer $cartCodeResponseTransfer
-     *
-     * @return void
-     */
     protected function processErrorResponseMessage(CartCodeResponseTransfer $cartCodeResponseTransfer): void
     {
         if ($this->successMessageExists($cartCodeResponseTransfer)) {
@@ -73,11 +62,6 @@ abstract class AbstractCodeController extends AbstractController
         $this->addErrorMessage(static::GLOSSARY_KEY_CODE_APPLY_FAILED);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartCodeResponseTransfer $cartCodeResponseTransfer
-     *
-     * @return bool
-     */
     protected function successMessageExists(CartCodeResponseTransfer $cartCodeResponseTransfer): bool
     {
         foreach ($cartCodeResponseTransfer->getMessages() as $messageTransfer) {
@@ -89,12 +73,6 @@ abstract class AbstractCodeController extends AbstractController
         return false;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartCodeResponseTransfer $cartCodeResponseTransfer
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
     protected function redirectResponse(
         CartCodeResponseTransfer $cartCodeResponseTransfer,
         Request $request
@@ -109,11 +87,6 @@ abstract class AbstractCodeController extends AbstractController
         return $this->getRedirectResponse($request);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
     protected function getRedirectResponse(Request $request): RedirectResponse
     {
         $redirectRouteName = (string)$request->query->get(static::PARAM_REDIRECT_ROUTE_NAME);
@@ -123,11 +96,6 @@ abstract class AbstractCodeController extends AbstractController
             : $this->redirectResponseExternal($request->headers->get('referer'));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\MessageTransfer $messageTransfer
-     *
-     * @return void
-     */
     protected function handleMessage(MessageTransfer $messageTransfer): void
     {
         if ($messageTransfer->getType() === static::MESSAGE_TYPE_ERROR) {
