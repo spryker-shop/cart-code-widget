@@ -7,6 +7,7 @@
 
 namespace SprykerShop\Yves\CartCodeWidget;
 
+use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 use SprykerShop\Yves\CartCodeWidget\Dependency\Client\CartCodeWidgetToCartCodeClientBridge;
@@ -31,6 +32,18 @@ class CartCodeWidgetDependencyProvider extends AbstractBundleDependencyProvider
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
     /**
+     * @var string
+     */
+    public const CLIENT_SECURITY_BLOCKER = 'CLIENT_SECURITY_BLOCKER';
+
+    /**
+     * @uses \Spryker\Yves\Router\Plugin\Application\RouterApplicationPlugin::SERVICE_ROUTER
+     *
+     * @var string
+     */
+    public const SERVICE_ROUTER = 'routers';
+
+    /**
      * @param \Spryker\Yves\Kernel\Container $container
      *
      * @return \Spryker\Yves\Kernel\Container
@@ -40,6 +53,8 @@ class CartCodeWidgetDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addCartCodeClient($container);
         $container = $this->addQuoteClient($container);
         $container = $this->addZedRequestClient($container);
+        $container = $this->addSecurityBlockerClient($container);
+        $container = $this->addRouter($container);
 
         return $container;
     }
@@ -66,6 +81,24 @@ class CartCodeWidgetDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container->set(static::CLIENT_ZED_REQUEST, function (Container $container) {
             return new CartCodeWidgetToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
+        });
+
+        return $container;
+    }
+
+    protected function addSecurityBlockerClient(Container $container): Container
+    {
+        $container->set(static::CLIENT_SECURITY_BLOCKER, function (Container $container) {
+            return $container->getLocator()->securityBlocker()->client();
+        });
+
+        return $container;
+    }
+
+    protected function addRouter(Container $container): Container
+    {
+        $container->set(static::SERVICE_ROUTER, function (ContainerInterface $container) {
+            return $container->getApplicationService(static::SERVICE_ROUTER);
         });
 
         return $container;

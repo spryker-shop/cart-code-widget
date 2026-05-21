@@ -8,17 +8,23 @@
         "spryker-shop/shop-application": "^1.0.0",
         "spryker/application": "^3.8.0",
         "spryker/cart-code": "^1.1.0",
+        "spryker/event-dispatcher-extension": "^1.0.0",
         "spryker/kernel": "^3.52.0",
         "spryker/quote": "^2.8.0",
+        "spryker/security-blocker": "^1.0.0",
         "spryker/symfony": "^3.1.0",
         "spryker/zed-request": "^3.6.0"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
+        "spryker/container": "*",
+        "spryker/event-dispatcher": "*",
         "spryker/router": "*",
         "spryker/silex": "*"
     },
     "suggest": {
+        "spryker/container": "Use this module when you want to use application services via ContainerInterface.",
+        "spryker/event-dispatcher": "Use this module when you want to register the SecurityBlockerCartCodeEventDispatcherPlugin.",
         "spryker/router": "Use this module when you want to use the RouteProviderPlugin.",
         "spryker/silex": "Use this module when using plugins that need Silex dependencies."
     },

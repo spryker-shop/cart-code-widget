@@ -25,4 +25,15 @@
     <transfer name="Quote">
     </transfer>
 
+    <transfer name="SecurityCheckAuthContext">
+        <property name="type" type="string"/>
+        <property name="ip" type="string"/>
+        <property name="account" type="string"/>
+    </transfer>
+
+    <transfer name="SecurityCheckAuthResponse">
+        <property name="isBlocked" type="bool"/>
+        <property name="blockedFor" type="int"/>
+    </transfer>
+
 </transfers>
